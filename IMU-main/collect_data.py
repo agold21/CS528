@@ -8,7 +8,7 @@ from datetime import datetime
 ser = serial.Serial(port='COM4', baudrate=115200, timeout=1)
 
 # Set up files
-filenames = ["down.csv", "left.csv", "up.csv", "right.csv"]
+filenames = ["alexa.csv", "play.csv", "despacito.csv", "beethoven.csv"]
 
 # Create expression to remove ANSI escape codes
 ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
@@ -68,11 +68,11 @@ for i in range(4):
         csv_writer = csv.writer(file)
         # Write header
         csv_writer.writerow(['accel_x', 'accel_y', 'accel_z', 'gyro_x', 'gyro_y', 'gyro_z'])
-        print(f"Move your hand {file.name} in 4 seconds")
+        print(f"Mouth the word {file.name} in 4 seconds")
         for t in reversed(range(4)):
             time.sleep(1)
             print(f"{t} seconds")
-        print(f"Move hand {file.name} over 4 seconds")
+        print(f"Mouth the word {file.name} over 4 seconds")
         # Set up timing for the while loop
         starttime = time.time()    
         endtime = starttime + 4.0
