@@ -69,8 +69,10 @@ for i in range(4):
         # Write header
         csv_writer.writerow(['accel_x', 'accel_y', 'accel_z', 'gyro_x', 'gyro_y', 'gyro_z'])
         print(f"Mouth the word {file.name} in 4 seconds")
-        for t in reversed(range(4)):
+        for t in reversed(range(2)):
             time.sleep(1)
+            if t == 1:
+                ser.reset_input_buffer() # resets input buffer so data read is correct data 
             print(f"{t} seconds")
         print(f"Mouth the word {file.name} over 4 seconds")
         # Set up timing for the while loop
