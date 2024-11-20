@@ -5,10 +5,10 @@ import re
 from datetime import datetime
 
 # Configure serial connection
-ser = serial.Serial(port='COM4', baudrate=115200, timeout=1)
+ser = serial.Serial(port='/dev/tty.usbserial-1120', baudrate=115200, timeout=1)
 
 # Set up files
-filenames = ["alexa.csv", "play.csv", "despacito.csv", "beethoven.csv"]
+filenames = ["alexa_00.csv", "play_00.csv", "despacito_00.csv", "beethoven_00.csv"]
 
 # Create expression to remove ANSI escape codes
 ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')

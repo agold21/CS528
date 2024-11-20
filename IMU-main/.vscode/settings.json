@@ -4,5 +4,6 @@
         "board/esp32s3-builtin.cfg"
     ],
     "idf.flashType": "UART",
-    "idf.portWin": "COM4"
+    "idf.portWin": "COM4",
+    "idf.port": "/dev/tty.usbserial-1120"
 }

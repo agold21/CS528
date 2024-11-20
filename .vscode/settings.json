@@ -1,0 +1,8 @@
+{
+    "cmake.sourceDirectory": "/Users/ashahrour/Documents/GitHub/CS528/IMU-main",
+    "idf.port": "/dev/tty.usbserial-1110",
+    "idf.adapterTargetName": "esp32s3",
+    "idf.openOcdConfigs": [
+        "board/esp32s3-builtin.cfg"
+    ]
+}
