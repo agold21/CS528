@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+import pickle
 
 
 labels = ["down", "left", "up", "right", "still"]
@@ -84,3 +85,5 @@ def predict_svm(data):
     # data.plot(y=["accel_x", "accel_y", "accel_z"], title="accel_data", xlabel="Time", ylabel="Amplitude")
     return data[0:0]
 
+with open('trained_svm_model.pkl', 'wb') as f:
+    pickle.dump(svm, f)
