@@ -24,9 +24,9 @@ files_df = pd.DataFrame(all_data)
 files_df.columns = ['Filename', 'Direction']
 
 # convert files to csv
-files_df.to_csv("csv_files/train_svm.csv", index=False)
+files_df.to_csv("train_svm.csv", index=False)
 
-train_labels = pd.read_csv("csv_files/train_svm.csv") # Update directory
+train_labels = pd.read_csv("train_svm.csv") # Update directory
 
 train_dir = "csv_files/" # Update directory
 

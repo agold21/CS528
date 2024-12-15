@@ -8,7 +8,8 @@ from datetime import datetime
 ser = serial.Serial(port='COM4', baudrate=115200, timeout=1)
 
 # Set up files
-filenames = ["still_29.csv", "alexa_29.csv", "play_29.csv", "despacito_29.csv", "beethoven_29.csv"] # Replace with more files
+filenames = ["still_00.csv", "alexa_00.csv", "play_00.csv", "despacito_00.csv", "beethoven_00.csv"]
+
 # Create expression to remove ANSI escape codes
 ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
 
@@ -48,9 +49,9 @@ def extract_gyro_data(data):
 def clean_data(data):
     return ansi_escape.sub('', data)
 
-# Set up device to avoid late outputs (issue from assignment 1)
+# Set up device to avoid late outputs
 starttime = time.time()    
-endtime = starttime + 3.0
+endtime = starttime + 1.0
 while (time.time() < endtime):
     try:
         if ser.in_waiting > 0:  # Check if data is available
@@ -60,23 +61,24 @@ while (time.time() < endtime):
         print("Terminating program")
 
 # Run for all 4 motions/files
-for i in range(5):
+for i in range(len(filenames)):
     # mode='w' will delete existing file data
     with open(filenames[i], mode='w', newline='') as file:
         # Create csv writer
         csv_writer = csv.writer(file)
         # Write header
         csv_writer.writerow(['accel_x', 'accel_y', 'accel_z', 'gyro_x', 'gyro_y', 'gyro_z'])
-        print(f"Mouth {file.name} in 2 seconds")
+        print(f"Mouth the word {file.name} in 4 seconds")
         for t in reversed(range(2)):
             time.sleep(1)
             if t == 1:
                 ser.reset_input_buffer() # resets input buffer so data read is correct data 
             print(f"{t} seconds")
-        print(f"Mouth word {file.name} over 4 seconds")
+        print(f"Mouth the word {file.name} over 4 seconds")
         # Set up timing for the while loop
         starttime = time.time()    
         endtime = starttime + 4.0
+        #time.perf_counter()
         while (time.time() < endtime):
             try:
                 if ser.in_waiting > 0:  # Check if data is available
@@ -87,8 +89,6 @@ for i in range(5):
                     # Check to see if gyro and/or accel data came in
                     accel_data = extract_accel_data(data)
                     gyro_data = extract_gyro_data(data) 
-                    if (not accel_data or not gyro_data):
-                        continue
                     if accel_data or gyro_data:             
                         # Prepare data row
                         row = [
@@ -106,7 +106,7 @@ for i in range(5):
                 print("Terminating program")
             
         print("STOPPPP STOPP STOPPPPP")
-        # wait a bit so I can reset my hand
+        # wait a bit so I can reset my face
         time.sleep(2)        
 print("Done!")
 ser.close()
