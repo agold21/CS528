@@ -50,10 +50,13 @@ latest_acce = None
 latest_gyro = None
 
 previous_gesture = None
-hold_duration = 2.0
+hold_duration = 2
+
+time.sleep(1) # give device time to set up
 
 print("Starting real-time detection...")
 
+cur_time = time.time()
 
 while True:
     try:
@@ -93,33 +96,30 @@ while True:
                     acc_segment = np.array(acc_data_buffer[-sequence_length:])
                     gyro_segment = np.array(gyro_data_buffer[-sequence_length:])
                     imu_data = np.hstack((acc_segment, gyro_segment))
-
                     features = preprocess_data(imu_data)
                     prediction = svm_classifier.predict(features)[0]
 
                     if prediction != "still":
                         print(f"\rDetected Word: {prediction}  ", end='', flush=True)
 
-                        time.sleep(hold_duration)
-
-                        sys.stdout.write("\r" + " " * 50 + "\r")
-                        sys.stdout.flush()
-
-                        acc_data_buffer.clear()
-                        gyro_data_buffer.clear()
-                        prediction = None
                     else:
                         if prediction is not None:
-                            print("no detected word", flush=True)
-                            sys.stdout.write("\r" + " " * 50 + "\r")
-                            sys.stdout.flush()
+                            print("no detected word", end='', flush=True)
                             
-                            acc_data_buffer.clear()
-                            gyro_data_buffer.clear()
-                            prediction = None
+                    for t in reversed(range(hold_duration)):
+                        time.sleep(1)
+                        if t == 1:
+                            ser.reset_input_buffer() # resets input buffer so data read is correct data while
+
+                    sys.stdout.write("\r" + " " * 50 + "\r")
+                    sys.stdout.flush()
+                    
+                    acc_data_buffer = []
+                    gyro_data_buffer = []
+                    prediction = None                   
                             
 
-        time.sleep(0.01)
+        time.sleep(0.001)
 
     except KeyboardInterrupt:
         print("\nExiting real-time detection...")
