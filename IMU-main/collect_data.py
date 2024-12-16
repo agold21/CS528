@@ -8,7 +8,7 @@ from datetime import datetime
 ser = serial.Serial(port='COM4', baudrate=115200, timeout=1)
 
 # Set up files
-filenames = ["still_29.csv", "alexa_29.csv", "play_29.csv", "despacito_29.csv", "beethoven_29.csv"] # Replace with more files
+filenames = ["still_47.csv", "alexa_47.csv", "play_47.csv", "despacito_47.csv", "beethoven_47.csv"] # Replace with more files
 # Create expression to remove ANSI escape codes
 ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
 

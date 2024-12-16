@@ -11,14 +11,13 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 import pickle
 
 
-labels = ["down", "left", "up", "right", "still"]
+labels = ["alexa", "beethoven", "despacito", "play", "still"]
 
 # Set up files with appropriate labels
 all_data = []
 for direction in os.listdir('csv_files/'):
-    if len(direction) < 6: # avoids test.csv and train.csv
-        for filename in os.listdir(f'csv_files/{direction}'):
-            all_data.append([filename, direction]) 
+    for filename in os.listdir(f'csv_files/{direction}'):
+        all_data.append([filename, direction]) 
         
 files_df = pd.DataFrame(all_data)
 files_df.columns = ['Filename', 'Direction']
